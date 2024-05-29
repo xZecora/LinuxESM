@@ -1,0 +1,22 @@
+#!/bin/sh
+
+CONFIG=./config.sh
+
+if [ "$1" = "configure" ] || [ ! -f ./config.sh ]; then
+  if [ -f ./config.sh ];then
+    mv $CONFIG $CONFIG.bak
+    echo "Backed up current config."
+  fi
+  printf "#!/bin/sh\n\n# Any file changes in the runtime will be stored here after the file system is destroyed\nOVERWRITE=/home/vitrial/Documents/Oblivion/overwrite\n\n# This is simply needed for fuse-overlayfs, would recommend just leaving it in your cache directory\nCACHE=/home/vitrial/.cache/oblivion\n\n# This is where your runtime will be stored when it is created, this should be where steam or you run your game from.\nRUNTIME=/home/vitrial/Documents/oblivion-test/oblivion-runtime\n\n#This is your load order file, it controls what overwrites what when the runtime is created, manage file conflicts here.\nLOAD_ORDER=load_order\n\n# This is where you store your mods folders, seperate from each other.\n# Should be one directory above the data in the mods, otherwise things will not go where you want them.\nMODFOLDER=/home/vitrial/Documents/Oblivion/mods/\n\n# The base data for your Oblivion, should point to the Data folder wherever you keep Oblivion.\nOBLIVIONDATA=/home/vitrial/games/SteamLibrary/steamapps/common/Oblivion/Data" > ./config.sh
+  echo "Config file created in ./config.sh. Please edit values according to your preferences."
+fi
+
+source $CONFIG
+
+if [ "$1" = "modlist" ]; then
+  ./generate-load-order $CONFIG
+elif [ "$1" = "destroy" ]; then
+  ./destroy_runtime.sh $CONFIG
+elif [ "$1" = "create" ]; then
+  ./create_runtime.sh $CONFIG
+fi

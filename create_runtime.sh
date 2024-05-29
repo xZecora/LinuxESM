@@ -1,6 +1,7 @@
 #!/bin/sh
 
-source ./config.sh
+CONFIG=${1:-$HOME/.config/LinuxESM}
+source $CONFIG
 LOWER=""
 
 if [ ! -f $LOAD_ORDER ]; then
@@ -16,4 +17,4 @@ LOWER="${LOWER#?}"
 
 #echo $LOWER
 
-fuse-overlayfs -o lowerdir="$LOWER",upperdir="$UPPER",workdir="$WORK" $MERGE
+fuse-overlayfs -o lowerdir="$LOWER",upperdir="$OVERWRITE",workdir="$CACHE" $RUNTIME

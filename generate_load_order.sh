@@ -1,6 +1,7 @@
 #!/bin/sh
 
-source ./config.sh
+CONFIG=${1:-$HOME/.config/LinuxESM}
+source $CONFIG
 
 DIRECTORIES=$(find "$MODFOLDER" -maxdepth 1 -type d)
 
