@@ -1,15 +1,19 @@
 #!/bin/sh
 
-UPPER=$HOME/Documents/Oblivion/overwrite
-WORK=$HOME/.cache/oblivion
+source ./config.sh
 LOWER=""
+
+if [ ! -f $LOAD_ORDER ]; then
+  echo "There is no load order file, please generate one using the command."
+  exit
+fi
 
 while read line; do
   LOWER=$LOWER:$line
-done < load_order
+done < $LOAD_ORDER
 
 LOWER="${LOWER#?}"
 
-echo $LOWER
+#echo $LOWER
 
-fuse-overlayfs -o lowerdir="$LOWER",upperdir=/home/vitrial/Documents/Oblivion/overwrite,workdir=$HOME/.cache/oblivion $HOME/Documents/merge
+fuse-overlayfs -o lowerdir="$LOWER",upperdir="$UPPER",workdir="$WORK" $MERGE

@@ -1,17 +1,17 @@
 #!/bin/sh
 
-MODFOLDER=/home/vitrial/Documents/Oblivion/mods/
-
-OBLIVIONDATA=/home/vitrial/games/SteamLibrary/steamapps/common/Oblivion
+source ./config.sh
 
 DIRECTORIES=$(find "$MODFOLDER" -maxdepth 1 -type d)
 
-LOWER=$OBLIVIONDATA
+ORDER_STRING=$OBLIVIONDATA
 
 while IFS= read -r dir; do
-  LOWER=$LOWER"\n"$dir
+  ORDER_STRING=$ORDER_STRING"\n"$dir
 done <<< "$DIRECTORIES"
 
-printf "$LOWER" > load_order
+ORDER_STRING=${ORDER_STRING/"$MODFOLDER\n"/}
+
+printf "$ORDER_STRING" > $LOAD_ORDER
 
 #fuse-overlayfs lowerdir
