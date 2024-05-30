@@ -10,7 +10,9 @@ if [ ! -f ${CONFIG}/load_order ]; then
 fi
 
 while read line; do
-  LOWER=$LOWER:$line
+  if [[ ! "$line" =~ "#" ]]; then
+    LOWER=$LOWER:$line
+  fi
 done < ${CONFIG}/load_order
 
 LOWER="${LOWER#?}"

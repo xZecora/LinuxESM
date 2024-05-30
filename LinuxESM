@@ -42,4 +42,8 @@ elif [ "$1" = "destroy" ]; then
   ./util/destroy_runtime.sh $CONFIG
 elif [ "$1" = "create" ]; then
   ./util/create_runtime.sh $CONFIG
+elif [ "$1" = "gen-plugins" ]; then
+  ./util/generate_plugin_list.sh $CONFIG
+elif [ "$1" = "bake-plugins" ]; then
+  ./util/plugin_order.sh $CONFIG
 fi
