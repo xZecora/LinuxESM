@@ -1,17 +1,17 @@
 #!/bin/sh
 
-CONFIG=${1:-$HOME/.config/LinuxESM}
-source $CONFIG
+CONFIG=${1:-$HOME/.config/LinuxESM/}
+source ${CONFIG}/config.sh
 LOWER=""
 
-if [ ! -f $LOAD_ORDER ]; then
+if [ ! -f ${CONFIG}/load_order ]; then
   echo "There is no load order file, please generate one using the command."
   exit
 fi
 
 while read line; do
   LOWER=$LOWER:$line
-done < $LOAD_ORDER
+done < ${CONFIG}/load_order
 
 LOWER="${LOWER#?}"
 

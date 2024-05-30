@@ -1,7 +1,7 @@
 #!/bin/sh
 
-CONFIG=${1:-$HOME/.config/LinuxESM/config.sh}
-source $CONFIG
+CONFIG=${1:-$HOME/.config/LinuxESM/}
+source ${CONFIG}/config.sh
 
 DIRECTORIES=$(find "$MODFOLDER" -maxdepth 1 -type d)
 
@@ -13,6 +13,6 @@ done <<< "$DIRECTORIES"
 
 ORDER_STRING=${ORDER_STRING/"$MODFOLDER\n"/}
 
-printf "$ORDER_STRING" > $LOAD_ORDER
+printf "$ORDER_STRING" > ${CONFIG}/load_order
 
 #fuse-overlayfs lowerdir
