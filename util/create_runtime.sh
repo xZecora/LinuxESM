@@ -11,11 +11,11 @@ fi
 
 while read line; do
   if [[ ! "$line" =~ "#" ]]; then
-    LOWER=$LOWER:$line
+    LOWER=$line:$LOWER
   fi
 done < ${CONFIG}/load_order
 
-LOWER="${LOWER#?}"
+LOWER="${LOWER%?}"
 
 #echo $LOWER
 
